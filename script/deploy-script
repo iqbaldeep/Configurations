@@ -5,7 +5,7 @@ git reset --hard
 git pull
 pwd
 whoami
-cp -f webserver/apache2.conf /etc/apache2/
+sudo cp -f webserver/apache2.conf /etc/apache2/
 service apache2 restart
 exit
 EOF
