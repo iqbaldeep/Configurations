@@ -1,2 +1,2 @@
 # Configurations
-This repo contains all congigurations required on servers to enable web-chat solution
+This repo contains all configurations required on servers to enable web-chat solution
