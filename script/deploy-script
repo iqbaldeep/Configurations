@@ -1,9 +1,10 @@
 #!/bin/sh
 ssh app@159.203.248.23 <<EOF
-ls -lrt
 cd ~/configurations
 git reset --hard
 git pull
+pwd
+whoami
 cp -f webserver/apache2.conf /etc/apache2/
 service apache2 restart
 exit
