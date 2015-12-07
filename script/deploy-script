@@ -6,6 +6,6 @@ git pull
 pwd
 whoami
 sudo cp -f webserver/apache2.conf /etc/apache2/
-service apache2 restart
+sudo service apache2 restart
 exit
 EOF
