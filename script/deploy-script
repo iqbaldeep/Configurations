@@ -3,8 +3,6 @@ ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
 git pull
-pwd
-whoami
 sudo cp -f webserver/apache2.conf /etc/apache2/
 sudo service apache2 restart
 exit
