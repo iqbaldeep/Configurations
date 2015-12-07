@@ -1,4 +1,6 @@
 #!/bin/sh
+echo $1
+echo $2
 ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
