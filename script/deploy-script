@@ -4,7 +4,7 @@ cd ~/configurations
 git reset --hard
 git pull
 sudo cp -f webserver/apache2.conf /etc/apache2/
-sed -i 's/<ServerName>/159.203.248.23/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<ServerName>/159.203.248.23/g' /etc/apache2/apache2.conf
 sudo service apache2 restart
 exit
 EOF
