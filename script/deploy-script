@@ -1,12 +1,12 @@
 #!/bin/sh
-# $1 = server name to be populated in  apache2.conf
+# $1 = server name to be populated in apache2.conf
 ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
 git pull
 echo ServerName in apache2.conf to be "$1"
 sudo cp -f webserver/apache2.conf /etc/apache2/
-sudo sed -i 's/<ServerName>/$2/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<ServerName>/$1/g' /etc/apache2/apache2.conf
 sudo service apache2 restart
 exit
 EOF
