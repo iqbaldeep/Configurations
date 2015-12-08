@@ -7,7 +7,10 @@ ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
 git pull
-echo ServerName in apache2.conf to be "$1"
+echo Adding global ServerName in apache2.conf ="$1"
+echo Adding ServerName in virtual host in apache2.conf ="$2"
+echo Adding app server name/ip in apache2.conf ="$3"
+echo Adding app server port in apache2.conf ="$4"
 sudo cp -f webserver/apache2.conf /etc/apache2/
 sudo sed -i 's/<ServerName>/$1/g' /etc/apache2/apache2.conf
 sudo sed -i 's/<VH_DOMAIN_NAME>/$2/g' /etc/apache2/apache2.conf
