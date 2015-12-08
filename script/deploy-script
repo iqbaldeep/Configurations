@@ -1,5 +1,5 @@
 #!/bin/sh
-# $1 = server name to be populated in  apache2.conf
+# $1 = server name to be populated in apache2.conf
 ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
