@@ -1,5 +1,8 @@
 #!/bin/sh
 # $1 = server name to be populated in apache2.conf
+# $2 = domain name to be populated against ServerName in default virtual host in apache2.conf
+# $3 = app server name/IP to be populated in virtual host apache2.conf
+# $4 = app server port to be populated in virtual host apache2.conf
 ssh app@159.203.248.23 <<EOF
 cd ~/configurations
 git reset --hard
@@ -7,6 +10,9 @@ git pull
 echo ServerName in apache2.conf to be "$1"
 sudo cp -f webserver/apache2.conf /etc/apache2/
 sudo sed -i 's/<ServerName>/$1/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<VH_DOMAIN_NAME>/$2/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<APP_SERVER_NAME>/$3/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<APP_SERVER_PORT>/$4/g' /etc/apache2/apache2.conf
 sudo service apache2 restart
 exit
 EOF
