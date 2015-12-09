@@ -13,23 +13,23 @@ ls
 propFile="./env/$1/config.properties"
 if [ -f $propFile ]
 then
-	echo "$propFile" found
-	tr -d '\015' < $propFile >tempPropFile
+	echo "\$propFile" found
+	tr -d '\015' < \$propFile >tempPropFile
 	mv tempPropFile propFileUsed.properties
 	# source the properties
 	. propFileUsed.properties
 else
-	echo "$propFile" not found
+	echo "\$propFile" not found
 fi
-echo Adding global ServerName in apache2.conf ="$GblServerName"
-echo Adding ServerName in virtual host in apache2.conf ="$VHServerName"
-echo Adding app server name/ip in apache2.conf ="$AppServerName"
-echo Adding app server port in apache2.conf ="$AppServerPort"
+echo Adding global ServerName in apache2.conf ="\$GblServerName"
+echo Adding ServerName in virtual host in apache2.conf ="\$VHServerName"
+echo Adding app server name/ip in apache2.conf ="\$AppServerName"
+echo Adding app server port in apache2.conf ="\$AppServerPort"
 sudo cp -f webserver/apache2.conf /etc/apache2/
-sudo sed -i 's/<ServerName>/$GblServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<VH_DOMAIN_NAME>/$VHServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<APP_SERVER_NAME>/$AppServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<APP_SERVER_PORT>/$AppServerPort/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<ServerName>/\$GblServerName/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<VH_DOMAIN_NAME>/\$VHServerName/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<APP_SERVER_NAME>/\$AppServerName/g' /etc/apache2/apache2.conf
+sudo sed -i 's/<APP_SERVER_PORT>/\$AppServerPort/g' /etc/apache2/apache2.conf
 sudo service apache2 restart
 exit
 EOF
