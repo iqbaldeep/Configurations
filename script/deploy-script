@@ -13,12 +13,13 @@ ls
 propFile="./env/$1/config.properties"
 if [ -f $propFile ]
 then
-	tr -d '\015' < $propfile >tempPropFile
+	echo "$propFile" found
+	tr -d '\015' < $propFile >tempPropFile
 	mv tempPropFile propFileUsed.properties
 	# source the properties
 	. propFileUsed.properties
 else
-	echo "$propFile not found"
+	echo "$propFile" not found
 fi
 echo Adding global ServerName in apache2.conf ="$GblServerName"
 echo Adding ServerName in virtual host in apache2.conf ="$VHServerName"
