@@ -3,20 +3,23 @@
 # $2 = domain name to be populated against ServerName in default virtual host in apache2.conf
 # $3 = app server name/IP to be populated in virtual host apache2.conf
 # $4 = app server port to be populated in virtual host apache2.conf
-ssh app@159.203.248.23 <<EOF
+# $ signs have been escaped with \. Escaping means this would be unescaped after ssh and would give right 
+# values after ssh. If we don't escape, the value is returned for user before ssh
+
+# -T here avoids the warning message "Pseudo-terminal will not be allocated because stdin is not a terminal."
+ssh app@159.203.248.23 -T <<EOF
 cd ~/configurations
-git reset --hard
-git pull
+# changed it to fetch from pull to avoid git error "Please tell me who you are."
+git fetch
+git reset --hard origin/master
 echo Environment chosen ="$1"
-pwd
-ls
 propFile="./env/$1/config.properties"
 if [ -f $propFile ]
 then
 	echo "\$propFile" found
 	tr -d '\015' < \$propFile >tempPropFile
 	mv tempPropFile propFileUsed.properties
-	# source the properties
+	# loading the properties
 	. propFileUsed.properties
 else
 	echo "\$propFile" not found
@@ -26,10 +29,12 @@ echo Adding ServerName in virtual host in apache2.conf ="\$VHServerName"
 echo Adding app server name/ip in apache2.conf ="\$AppServerName"
 echo Adding app server port in apache2.conf ="\$AppServerPort"
 sudo cp -f webserver/apache2.conf /etc/apache2/
-sudo sed -i 's/<ServerName>/\$GblServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<VH_DOMAIN_NAME>/\$VHServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<APP_SERVER_NAME>/\$AppServerName/g' /etc/apache2/apache2.conf
-sudo sed -i 's/<APP_SERVER_PORT>/\$AppServerPort/g' /etc/apache2/apache2.conf
+sudo cp -f webserver/apache2.conf /etc/apache2/
+# all sed should be in double quotes and remote variable to be escaped with \
+sudo sed -i "s/<ServerName>/\$GblServerName/g" /etc/apache2/apache2.conf
+sudo sed -i "s/<VH_DOMAIN_NAME>/\$VHServerName/g" /etc/apache2/apache2.conf
+sudo sed -i "s/<APP_SERVER_NAME>/\$AppServerName/g" /etc/apache2/apache2.conf
+sudo sed -i "s/<APP_SERVER_PORT>/\$AppServerPort/g" /etc/apache2/apache2.conf
 sudo service apache2 restart
 exit
 EOF
